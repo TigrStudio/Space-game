@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://source/enemy/Enemy.tscn" type="PackedScene" id=1]
+[ext_resource path="res://assests/sprites/ship_2.png" type="Texture" id=2]
+[ext_resource path="res://source/enemy/Enemy_Clever.gd" type="Script" id=3]
+
+[node name="Enemy_Clever" instance=ExtResource( 1 )]
+scale = Vector2( 0.7, 0.7 )
+script = ExtResource( 3 )
+velocity = Vector2( 0, 70 )
+
+[node name="sprite" parent="." index="0"]
+rotation = 3.14159
+texture = ExtResource( 2 )
+
+[node name="shotting_timer" type="Timer" parent="." index="3"]
+autostart = true
+
+[connection signal="timeout" from="shotting_timer" to="." method="_on_shotting_timer_timeout"]

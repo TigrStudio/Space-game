@@ -1,0 +1,52 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://source/scenes/PlayerShip.tscn" type="PackedScene" id=1]
+[ext_resource path="res://source/scenes/enemy_spanner.tscn" type="PackedScene" id=2]
+[ext_resource path="res://source/scripts/Main.gd" type="Script" id=3]
+[ext_resource path="res://source/ui/Score.tscn" type="PackedScene" id=4]
+[ext_resource path="res://source/scenes/armor.tscn" type="PackedScene" id=5]
+[ext_resource path="res://assests/sounds/dont-you-think-lose-16073.mp3" type="AudioStream" id=6]
+[ext_resource path="res://assests/sounds/Pickup_Coin4.wav" type="AudioStream" id=7]
+[ext_resource path="res://source/scenes/RED_bg.tscn" type="PackedScene" id=8]
+[ext_resource path="res://source/scenes/Stars.tscn" type="PackedScene" id=9]
+
+[node name="Main" type="Node"]
+script = ExtResource( 3 )
+
+[node name="Stars" parent="." instance=ExtResource( 9 )]
+
+[node name="enemy_spanner" parent="." instance=ExtResource( 2 )]
+
+[node name="Bullet_container" type="Node" parent="."]
+
+[node name="power_ups_container" type="Node" parent="."]
+
+[node name="power_up_timer" type="Timer" parent="power_ups_container"]
+wait_time = 30.0
+autostart = true
+
+[node name="Score" parent="." instance=ExtResource( 4 )]
+
+[node name="armor" parent="." instance=ExtResource( 5 )]
+script = null
+
+[node name="PlayerShip" parent="." instance=ExtResource( 1 )]
+position = Vector2( 92, 300 )
+
+[node name="RED_bg" parent="." instance=ExtResource( 8 )]
+
+[node name="sounds" type="Node" parent="."]
+
+[node name="Music" type="AudioStreamPlayer2D" parent="sounds"]
+position = Vector2( -1, -1 )
+stream = ExtResource( 6 )
+volume_db = -25.0
+
+[node name="coin_snd" type="AudioStreamPlayer2D" parent="sounds"]
+stream = ExtResource( 7 )
+
+[connection signal="timeout" from="power_ups_container/power_up_timer" to="." method="_on_power_up_timer_timeout"]
+[connection signal="died" from="PlayerShip" to="." method="_on_PlayerShip_died"]
+[connection signal="score_is_increased" from="PlayerShip" to="." method="_on_PlayerShip_score_is_increased"]
+
+[editable path="RED_bg"]

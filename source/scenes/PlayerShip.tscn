@@ -1,0 +1,44 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://assests/sprites/player_ship.png" type="Texture" id=1]
+[ext_resource path="res://source/scripts/PlayerShip.gd" type="Script" id=2]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 14.0
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 40, 40 )
+
+[node name="PlayerShip" type="KinematicBody2D" groups=["player"]]
+scale = Vector2( 0.8, 0.8 )
+z_index = 10
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_group_": true
+}
+speed = Vector2( 150, 150 )
+
+[node name="BULLET_CONTAINER" type="Node" parent="."]
+
+[node name="sprite" type="Sprite" parent="."]
+texture = ExtResource( 1 )
+region_rect = Rect2( 0, 0, 32, 32 )
+
+[node name="collisionShape" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[node name="shotting_delay" type="Timer" parent="."]
+wait_time = 0.25
+autostart = true
+
+[node name="Touch" type="Area2D" parent="."]
+
+[node name="touch_shape" type="CollisionShape2D" parent="Touch"]
+shape = SubResource( 2 )
+
+[node name="power_up_timer" type="Timer" parent="."]
+wait_time = 15.0
+
+[connection signal="timeout" from="shotting_delay" to="." method="_on_shotting_delay_timeout"]
+[connection signal="input_event" from="Touch" to="." method="_on_Touch_input_event"]
+[connection signal="timeout" from="power_up_timer" to="." method="_on_power_up_timer_timeout"]

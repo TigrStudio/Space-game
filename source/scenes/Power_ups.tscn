@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://source/scripts/Power_ups.gd" type="Script" id=1]
+[ext_resource path="res://assests/sounds/powerup.wav" type="AudioStream" id=2]
+
+[node name="Power_ups" type="Area2D"]
+collision_mask = 0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
+speed = 100
+
+[node name="Sprite" type="Sprite" parent="."]
+
+[node name="Shape" type="CollisionShape2D" parent="."]
+
+[node name="snd" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 2 )
+
+[connection signal="body_entered" from="." to="." method="_on_Power_ups_body_entered"]

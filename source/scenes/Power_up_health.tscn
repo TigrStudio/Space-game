@@ -1,0 +1,17 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://source/scenes/Power_ups.tscn" type="PackedScene" id=1]
+[ext_resource path="res://assests/sprites/powerup_armor.png" type="Texture" id=2]
+[ext_resource path="res://source/scripts/Power_up_health.gd" type="Script" id=3]
+
+[sub_resource type="RectangleShape2D" id=1]
+
+[node name="Power_up_healt" instance=ExtResource( 1 )]
+script = ExtResource( 3 )
+speed = 25
+
+[node name="Sprite" parent="." index="0"]
+texture = ExtResource( 2 )
+
+[node name="Shape" parent="." index="1"]
+shape = SubResource( 1 )
